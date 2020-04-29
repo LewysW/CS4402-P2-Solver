@@ -18,7 +18,10 @@ public final class BinaryCSPReader {
       return ;
     }
     BinaryCSPReader reader = new BinaryCSPReader() ;
-	  System.out.println(reader.readBinaryCSP(args[0])) ;
+    System.out.println(reader.readBinaryCSP(args[0])) ;
+
+    FCSolver fcSolver = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
+    fcSolver.solve();
   }
 
   /**

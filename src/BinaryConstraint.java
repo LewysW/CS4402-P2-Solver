@@ -17,6 +17,18 @@ public final class BinaryConstraint {
       result.append(bt+"\n") ;
     return result.toString() ;
   }
-  
+
+  public int getFirstVar() {
+    return firstVar;
+  }
+
+  public int getSecondVar() {
+    return secondVar;
+  }
+
+  public ArrayList<BinaryTuple> getTuples() {
+    return tuples;
+  }
+
   // SUGGESTION: You will want to add methods here to reason about the constraint
 }
