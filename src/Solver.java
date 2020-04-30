@@ -5,12 +5,10 @@ import static java.lang.System.exit;
 public abstract class Solver {
     //Hash map to store variable assignments, a missing key has not yet had a value assigned
     protected LinkedHashMap<Integer, Integer> assignments;
-    //Unassigned variables
-    protected LinkedHashSet<Integer> varList;
     //List of variable domains to allow for the removal and addition of values
     protected ArrayList<LinkedHashSet<Integer>> domains;
     //Constraints which represent arcs in the problem
-    protected LinkedHashMap<Arc, BinaryConstraint> constraints;
+    protected LinkedHashMap<Integer, LinkedHashMap<Integer, BinaryConstraint>> constraints;
 
     protected BinaryCSP binaryCSP; //TODO - consider removing
     protected Heuristic heuristic;
@@ -22,49 +20,56 @@ public abstract class Solver {
         this.assignments = new LinkedHashMap<>();
         this.binaryCSP = binaryCSP;
         this.heuristic = heuristic;
-        this.varList = new LinkedHashSet<>();
         this.constraints = new LinkedHashMap<>();
 
         for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
             this.domains.add(new LinkedHashSet<>());
-
-            varList.add(v);
 
             for (int d = binaryCSP.getLB(v); d <= binaryCSP.getUB(v); d++) {
                 this.domains.get(v).add(d);
             }
 
             for (BinaryConstraint bc : binaryCSP.getConstraints()) {
-                constraints.put(new Arc(bc.getFirstVar(), bc.getSecondVar()), bc);
+                if (!constraints.containsKey(bc.getFirstVar())) {
+                    constraints.put(bc.getFirstVar(), new LinkedHashMap<>());
+                }
+
+                constraints.get(bc.getFirstVar()).put(bc.getSecondVar(), bc);
             }
+
 
         }
 
         System.out.println("ASSIGNED DATA:");
-        for (Integer v : varList) {
+        System.out.println("Variables:");
+        for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
             LinkedHashSet<Integer> domain = domains.get(v);
             System.out.print("Var " + v + ":");
+            System.out.println("Domain:");
             for (Integer d : domain) {
                 System.out.print(" " + d);
             }
             System.out.println("\n");
         }
 
+        System.out.println("Constraints:");
         for (BinaryConstraint bc : binaryCSP.getConstraints()) {
-            System.out.println(constraints.get(new Arc(bc.getFirstVar(), bc.getSecondVar())));
+            System.out.println(constraints.get(bc.getFirstVar()).get(bc.getSecondVar()));
         }
     }
 
     protected BinaryConstraint arc(int futureVar, int var) {
-        return constraints.get(new Arc(futureVar, var));
+        return constraints.get(var).get(futureVar);
     }
 
     protected boolean revise(BinaryConstraint constraint, Stack<BinaryTuple> pruned) throws DomainEmptyException {
         boolean changed = false;
-        int Di = constraint.getFirstVar();
-        int Dj = constraint.getSecondVar();
+        int Di = constraint.getSecondVar();
+        int Dj = constraint.getFirstVar();
+        Iterator<Integer> iterator = domains.get(constraint.getSecondVar()).iterator();
 
-        for (Integer di : domains.get(Di)) {
+        while (iterator.hasNext()) {
+            Integer di = iterator.next();
             boolean supported = false;
             for (Integer dj : domains.get(Dj)) {
                 if (satisfies(di, dj, constraint)) {
@@ -72,7 +77,7 @@ public abstract class Solver {
                 }
             }
             if (!supported) {
-                remove(di, Di);
+                iterator.remove();
                 changed = true;
                 pruned.add(new BinaryTuple(Di, di));
             }
@@ -109,7 +114,7 @@ public abstract class Solver {
         domains.get(var).add(val);
     }
 
-    protected int selectVar() {
+    protected int selectVar(LinkedHashSet<Integer> varList) {
         if (assignments.size() == binaryCSP.getNoVariables()) {
             System.out.println("Error: selectVar() should not have been called!\n");
             exit(1);
@@ -118,12 +123,17 @@ public abstract class Solver {
         if (heuristic == Heuristic.ASCENDING) {
             return assignments.size();
         } else {
-            //TODO
-            // return variable with smallest-domain
-            System.out.println("Error: smallest-domain first not implemented!\n");
-            exit(1);
-            //Stops compiler complaining
-            return -1;
+            final int UNINITIALISED = -1;
+            int domain = UNINITIALISED;
+
+            //Gets minimum domain first
+            for (int v : varList) {
+                if (domain == UNINITIALISED || domains.get(v).size() > domains.get(domain).size()) {
+                    domain = v;
+                }
+            }
+
+            return domain;
         }
     }
 
@@ -135,32 +145,25 @@ public abstract class Solver {
         return domains.get(var);
     }
 
-    protected void assign(int var, int val) {
+    protected void assign(int var, int val, Stack<BinaryTuple> pruned) {
         assignments.put(var, val);
-        varList.remove(var);
+        Iterator<Integer> iterator = domains.get(var).iterator();
+        while (iterator.hasNext()) {
+            Integer integer = iterator.next();
+
+            if (integer != val) {
+                iterator.remove();
+                pruned.push(new BinaryTuple(var, integer));
+            }
+        }
     }
 
     protected void unassign(int var) {
         assignments.remove(var);
-        varList.add(var);
     }
 
     protected boolean completeAssignment() {
         return (assignments.size() == binaryCSP.getNoVariables());
-    }
-
-    protected boolean solution() {
-        //If list of unassigned variables is empty
-        for (BinaryConstraint constraint : constraints.values()) {
-            int val1 = assignments.get(constraint.getFirstVar());
-            int val2 = assignments.get(constraint.getSecondVar());
-
-            if (!satisfies(val1, val2, constraint)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public void printSolution() {
@@ -172,14 +175,23 @@ public abstract class Solver {
         result.append("CSP Solution running with the ");
         result.append(heuristic.name());
         result.append(" variable ordering strategy:\n");
-        for (Map.Entry<Integer, Integer> entry : assignments.entrySet()) {
+        for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
             result.append("Var ");
-            result.append(entry.getKey());
+            result.append(v);
             result.append(": ");
-            result.append(entry.getValue());
+            result.append(assignments.get(v));
             result.append("\n");
         }
 
         return result.toString();
+    }
+
+    //Restores pruned value to variable
+    protected void undoPruning(Stack<BinaryTuple> pruned) {
+        while (!pruned.empty()) {
+            int val = pruned.peek().getVal2();
+            int var = pruned.pop().getVal1();
+            restore(val, var);
+        }
     }
 }

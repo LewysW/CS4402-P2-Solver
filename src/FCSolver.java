@@ -10,57 +10,60 @@ public class FCSolver extends Solver {
     }
 
     public void solve() {
-        forwardChecking();
+        LinkedHashSet<Integer> varList = new LinkedHashSet<>();
+
+        for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
+            varList.add(v);
+        }
+
+        forwardChecking(varList);
     }
 
-    private void forwardChecking() {
+    private void forwardChecking(LinkedHashSet<Integer> varList) {
         if (completeAssignment()) {
-            if (solution()) {
-                printSolution();
-                exit(0);
-            }
+            printSolution();
+            exit(0);
         } else {
-            int var = selectVar();
+            int var = selectVar(varList);
             int val = selectVal(domain(var));
 
-            branchFCLeft(var, val);
-            branchFCRight(var, val);
+            branchFCLeft(varList, var, val);
+            branchFCRight(varList, var, val);
         }
     }
 
-    private void branchFCLeft(int var, int val) {
-        assign(var, val);
+    private void branchFCLeft(LinkedHashSet<Integer> varList, int var, int val) {
         Stack<BinaryTuple> pruned = new Stack<>();
-        if (reviseFutureArcs(var, pruned)) {
-            forwardChecking();
+        assign(var, val, pruned);
+        if (reviseFutureArcs(varList, var, pruned)) {
+            //Pass in value of varList - var
+            LinkedHashSet<Integer> subset = (LinkedHashSet<Integer>) varList.clone();
+            subset.remove(var);
+            forwardChecking(subset);
         }
         undoPruning(pruned);
         unassign(var);
     }
 
-    private void branchFCRight(int var, int val) {
+    private void branchFCRight(LinkedHashSet<Integer> varList, int var, int val) {
         remove(val, var);
         Stack<BinaryTuple> pruned = new Stack<>();
         if (!empty(domain(var))) {
-            if (reviseFutureArcs(var, pruned)) {
-                forwardChecking();
+            if (reviseFutureArcs(varList, var, pruned)) {
+                forwardChecking(varList);
             }
             undoPruning(pruned);
         }
         restore(val, var);
     }
 
-    private boolean reviseFutureArcs(int var, Stack<BinaryTuple> pruned) {
-        Iterator<Integer> iterator = varList.iterator();
-
+    private boolean reviseFutureArcs(LinkedHashSet<Integer> varList, int var, Stack<BinaryTuple> pruned) {
         //For each future variable which is not var
-        while (iterator.hasNext()) {
-            int futureVar = iterator.next();
-
+        for (int futureVar : varList) {
             if (!(futureVar == var)) {
                 try {
                     //If an arc exists between the two variables
-                    if (constraints.containsKey(new Arc(futureVar, var))) {
+                    if (constraints.containsKey(var) && constraints.get(var).containsKey(futureVar)) {
                         revise(arc(futureVar, var), pruned);
                     }
                  //Returns false iff a domain is emptied by a revision
@@ -71,14 +74,5 @@ public class FCSolver extends Solver {
         }
 
         return true;
-    }
-
-    //Restores pruned value to variable
-    private void undoPruning(Stack<BinaryTuple> pruned) {
-        while (!pruned.empty()) {
-            int val = pruned.peek().getVal2();
-            int var = pruned.pop().getVal1();
-            restore(val, var);
-        }
     }
 }
