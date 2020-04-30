@@ -25,7 +25,7 @@ public class FCSolver extends Solver {
             exit(0);
         } else {
             int var = selectVar(varList);
-            int val = selectVal(domain(var));
+            int val = selectVal(domains.get(var));
 
             branchFCLeft(varList, var, val);
             branchFCRight(varList, var, val);
@@ -48,7 +48,7 @@ public class FCSolver extends Solver {
     private void branchFCRight(LinkedHashSet<Integer> varList, int var, int val) {
         remove(val, var);
         Stack<BinaryTuple> pruned = new Stack<>();
-        if (!empty(domain(var))) {
+        if (!domains.get(var).isEmpty()) {
             if (reviseFutureArcs(varList, var, pruned)) {
                 forwardChecking(varList);
             }

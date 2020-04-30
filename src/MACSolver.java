@@ -19,13 +19,14 @@ public class MACSolver extends Solver {
 
     public void MAC3(LinkedHashSet<Integer> varList) {
         int var = selectVar(varList);
-        int val = selectVal(domain(var));
+        int val = selectVal(domains.get(var));
+
         Stack<BinaryTuple> pruned = new Stack<>();
         assign(var, val, pruned);
         if (completeAssignment()) {
             printSolution();
             exit(0);
-        } else if (AC3(pruned)) {
+        } else if (AC3(varList, pruned)) {
             //Pass in value of varList - var
             LinkedHashSet<Integer> subset = (LinkedHashSet<Integer>) varList.clone();
             subset.remove(var);
@@ -34,8 +35,8 @@ public class MACSolver extends Solver {
         undoPruning(pruned);
         unassign(var);
         remove(val, var);
-        if (!empty(domain(var))) {
-            if (AC3(pruned)) {
+        if (!domains.get(var).isEmpty()) {
+            if (AC3(varList, pruned)) {
                 MAC3(varList);
             }
             undoPruning(pruned);
@@ -43,7 +44,7 @@ public class MACSolver extends Solver {
         restore(val, var);
     }
 
-    public boolean AC3(Stack<BinaryTuple> pruned) {
+    public boolean AC3(LinkedHashSet<Integer> varList, Stack<BinaryTuple> pruned) {
         Queue<BinaryConstraint> queue = new LinkedList<>(binaryCSP.getConstraints());
 
         while (!queue.isEmpty()) {
@@ -53,7 +54,7 @@ public class MACSolver extends Solver {
                     int xi = topConstraint.getSecondVar();
                     int xj = topConstraint.getFirstVar();
 
-                    for (int xh = 0; xh < binaryCSP.getNoVariables(); xh++) {
+                    for (int xh = 0; xh < varList.size(); xh++) {
                         if (xh != xj) {
                             if (constraints.containsKey(xh) && constraints.get(xh).containsKey(xi)) {
                                 ((LinkedList<BinaryConstraint>) queue).push(constraints.get(xh).get(xi));
@@ -66,7 +67,6 @@ public class MACSolver extends Solver {
             }
         }
 
-        //TODO - sorted here if using SDF
         return true;
     }
 }
