@@ -85,88 +85,144 @@ public abstract class Solver {
         boolean changed = false;
         int Di_index = constraint.getSecondVar();
 
-        //Gets
+        //Get domain of xi
         LinkedHashSet<Integer> Di = (LinkedHashSet<Integer>) domains.get(constraint.getSecondVar()).clone();
+        //Get domain of xj
         LinkedHashSet<Integer> Dj = domains.get(constraint.getFirstVar());
 
+        //For each value di in the domain Di of xi
         for (Integer di : Di) {
             boolean supported = false;
+
+            //For each value in the domain Dj of xj
             for (Integer dj : Dj) {
+                //if xi = di and xj = dj satisfies the constraint
                 if (satisfies(di, dj, constraint)) {
+                    //Supported is set to true
                     supported = true;
                 }
             }
+            //If no pair of values xi = di and xj = dj satisfy the constraint
             if (!supported) {
-                //remove di from Di (not the clone of Di)
+                //Remove (prune) di from Di the domain of xi
                 remove(di, Di_index);
-
-//                if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-//                    updateDomainSizeMapping(domains.get(di).size(), domains.get(di).size() - 1, di);
-//                }
-
+                //Mark variable domain as changed
                 changed = true;
+                //Store pruned value for later in case it needs to be restored
                 pruned.add(new BinaryTuple(Di_index, di));
             }
         }
 
+        //If the domain Di is empty
         if (domains.get(Di_index).isEmpty()) {
+            //Fail and exit early
             throw new DomainEmptyException("Domain of variable is empty!\n");
         }
 
+        //Return whether change to domain Di was made
         return changed;
     }
 
 
+    /**
+     * Returns whether assignments to variables xi and xj satisfy constraint c
+     * @param xi - first variable in arc
+     * @param xj - second variable in arc
+     * @param c - constraint
+     * @return whether (xi, xj) satisfies c
+     */
     protected boolean satisfies(int xi, int xj, BinaryConstraint c) {
+        //For each pair of valid values in the constraint
         for (BinaryTuple tuple : c.getTuples()) {
+            //If one of them matches the values of the variables
             if (tuple.matches(xi, xj)) {
+                //Then the constraint is satisfied
                 return true;
             }
         }
+
+        //If none of the tuples match the variable
+        // values then the constraint is not satisfied
         return false;
     }
 
-    //Removes a val from domain(var)
+    /**
+     * Removes a value from the domain of a variable
+     * @param val - value to remove
+     * @param var - variable to reduce the domain of
+     */
     protected void remove(int val, int var) {
+        //If smallest-domain first is being used
         if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
+            //Change which domain size this variable is associated with
             updateDomainSizeMapping(domains.get(var).size(), domains.get(var).size() - 1, var);
         }
 
+        //Remove value from domain of variable
         domains.get(var).remove(val);
     }
 
-    //Replaces a val in domain(var)
+    /**
+     * Restores a value to the domain of a variable
+     * @param val - value to restore
+     * @param var - variable to have value added to its domain
+     */
     protected void restore(int val, int var) {
-        //Update size of variables domain after pruning is undone
+        //If smallest-domain first is being used
         if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
+            //Change which domain size this variable is associated with
             updateDomainSizeMapping(domains.get(var).size(), domains.get(var).size() + 1, var);
         }
 
+        //Add value to domain of variable
         domains.get(var).add(val);
     }
 
-    protected int selectVar(LinkedHashSet<Integer> varList) {
+    /**
+     * Selects a variable depending on the variable ordering heuristic in use
+     * @return next variable to assign
+     */
+    protected int selectVar() {
+        //If heuristic is ascending
         if (heuristic == Heuristic.ASCENDING) {
+            //Get value of next variable which has not be assigned a value
             return assignments.size();
         } else {
+            //Otherwise get first entry in smallest domain
             return domainSizes.firstEntry().getValue().iterator().next();
         }
     }
 
+    /**
+     * Select value from domain of chosen variable
+     * @param domain - to select value from
+     * @return first value in domain
+     */
     protected int selectVal(LinkedHashSet<Integer> domain) {
         return domain.iterator().next();
     }
 
+    /**
+     * Assign selected value to selected variable
+     * @param var - chosen variable
+     * @param val - chosen value
+     * @param pruned - stack of pruned domain values
+     */
     protected void assign(int var, int val, Stack<BinaryTuple> pruned) {
         assignments.put(var, val);
         LinkedHashSet<Integer> domain = (LinkedHashSet<Integer>) domains.get(var).clone();
 
+        //Get size of domain of var
         int inititalSize = domain.size();
 
-        for (int d : domain) {
-            if (d != val) {
-                domains.get(var).remove(d);
-                pruned.push(new BinaryTuple(var, d));
+        //For each value di in the domain of var
+        for (int di : domain) {
+            //If value di is not the selected value val
+            if (di != val) {
+                //Prune the value di from the domain
+                domains.get(var).remove(di);
+                //Store the value on the stack in case it needs to be restored
+                pruned.push(new BinaryTuple(var, di));
             }
         }
 
@@ -183,18 +239,33 @@ public abstract class Solver {
         }
     }
 
+    /**
+     * Remove from assignments
+     * @param var - variable to unassign
+     */
     protected void unassign(int var) {
         assignments.remove(var);
     }
 
+    /**
+     * Checks if solution has been found
+     * @return whether every variable has an assignment
+     */
     protected boolean completeAssignment() {
         return (assignments.size() == binaryCSP.getNoVariables());
     }
 
+    /**
+     * Prints the solution
+     */
     public void printSolution() {
         System.out.println(this.toString());
     }
 
+    /**
+     * Converts the problem solution to a string
+     * @return string solution
+     */
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append("CSP Solution running with the ");
@@ -211,25 +282,38 @@ public abstract class Solver {
         return result.toString();
     }
 
-    //Restores pruned value to variable
+    /**
+     * Restores pruned values using stack
+     * @param pruned - pruned tree values to be restored
+     */
     protected void undoPruning(Stack<BinaryTuple> pruned) {
+        //Loops until all pruned values have been restored
         while (!pruned.empty()) {
+            //Get value and variable from stack
             int val = pruned.peek().getVal2();
             int var = pruned.pop().getVal1();
+
+            //Restore value to domain of variable
             restore(val, var);
         }
     }
 
+    /**
+     * Updates mapping from size of domain to
+     * variables with that domain size
+     * @param currentSize - current size of domain of variable
+     * @param newSize - new size of domain of variable
+     * @param var - variable to update domain size of
+     */
     protected void updateDomainSizeMapping(int currentSize, int newSize, int var) {
-        //If there exists domains of that size, and var is one of them
-        if (domainSizes.containsKey(currentSize)
-                && domainSizes.get(currentSize).contains(var)) {
-            //Remove var from that domain size
+        //If there exists a set of variables with that domain size, and var is one of them
+        if (domainSizes.containsKey(currentSize) && domainSizes.get(currentSize).contains(var)) {
+            //Remove var from set with that domain size
             domainSizes.get(currentSize).remove(var);
 
             //If there are no longer any variables with that size domain,
-            //then the delte the domain size
             if (domainSizes.get(currentSize).isEmpty()) {
+                //then the delete the set with that domain size
                 domainSizes.remove(currentSize);
             }
         }
