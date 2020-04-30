@@ -53,12 +53,10 @@ public class MACSolver extends Solver {
                     int xi = topConstraint.getSecondVar();
                     int xj = topConstraint.getFirstVar();
 
-                    for (BinaryConstraint constraint : binaryCSP.getConstraints()) {
-                        int xh = constraint.getSecondVar();
-
-                        if (xh != xj && constraint.getFirstVar() == xi) {
-                            if (!queue.contains(constraint)) {
-                                ((LinkedList<BinaryConstraint>) queue).push(constraint);
+                    for (int xh = 0; xh < binaryCSP.getNoVariables(); xh++) {
+                        if (xh != xj) {
+                            if (constraints.containsKey(xh) && constraints.get(xh).containsKey(xi)) {
+                                ((LinkedList<BinaryConstraint>) queue).push(constraints.get(xh).get(xi));
                             }
                         }
                     }

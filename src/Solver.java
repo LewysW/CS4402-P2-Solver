@@ -36,7 +36,9 @@ public abstract class Solver {
 
                 constraints.get(bc.getFirstVar()).put(bc.getSecondVar(), bc);
             }
+        }
 
+        if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
 
         }
 
@@ -115,17 +117,13 @@ public abstract class Solver {
     }
 
     protected int selectVar(LinkedHashSet<Integer> varList) {
-        if (assignments.size() == binaryCSP.getNoVariables()) {
-            System.out.println("Error: selectVar() should not have been called!\n");
-            exit(1);
-        }
-
         if (heuristic == Heuristic.ASCENDING) {
             return assignments.size();
         } else {
             final int UNINITIALISED = -1;
             int domain = UNINITIALISED;
 
+            //TODO - sort once at the start of the program to avoid repeated linear searches
             //Gets minimum domain first
             for (int v : varList) {
                 if (domain == UNINITIALISED || domains.get(v).size() > domains.get(domain).size()) {
