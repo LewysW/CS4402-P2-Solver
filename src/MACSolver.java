@@ -18,7 +18,7 @@ public class MACSolver extends Solver {
     }
 
     public void MAC3(LinkedHashSet<Integer> varList) {
-        int var = selectVar(varList);
+        int var = selectVar();
         int val = selectVal(domain(var));
         Stack<BinaryTuple> pruned = new Stack<>();
         assign(var, val, pruned);
@@ -66,6 +66,7 @@ public class MACSolver extends Solver {
             }
         }
 
+        //TODO - sorted here if using SDF
         return true;
     }
 }

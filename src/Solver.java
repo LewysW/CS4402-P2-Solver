@@ -12,6 +12,8 @@ public abstract class Solver {
 
     protected BinaryCSP binaryCSP; //TODO - consider removing
     protected Heuristic heuristic;
+    //Maps variables to their domains and is sorted by size of the domain
+    protected Map<Integer, LinkedHashSet<Integer>> sortedDomains = new TreeMap<>();
 
     //TODO - remove pointless functions after pseudo code solution is translated
 
@@ -29,6 +31,10 @@ public abstract class Solver {
                 this.domains.get(v).add(d);
             }
 
+            if (heuristic == heuristic.SMALLEST_DOMAIN_FIRST) {
+                this.sortedDomains.put(v, this.domains.get(v));
+            }
+
             for (BinaryConstraint bc : binaryCSP.getConstraints()) {
                 if (!constraints.containsKey(bc.getFirstVar())) {
                     constraints.put(bc.getFirstVar(), new LinkedHashMap<>());
@@ -38,26 +44,42 @@ public abstract class Solver {
             }
         }
 
+        //TODO sort values for SMF
         if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-
+            System.out.println(entriesSortedByValues(sortedDomains));
         }
 
-        System.out.println("ASSIGNED DATA:");
-        System.out.println("Variables:");
-        for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
-            LinkedHashSet<Integer> domain = domains.get(v);
-            System.out.print("Var " + v + ":");
-            System.out.println("Domain:");
-            for (Integer d : domain) {
-                System.out.print(" " + d);
-            }
-            System.out.println("\n");
-        }
+//        System.out.println("ASSIGNED DATA:");
+//        System.out.println("Variables:");
+//        for (int v = 0; v < binaryCSP.getNoVariables(); v++) {
+//            LinkedHashSet<Integer> domain = domains.get(v);
+//            System.out.print("Var " + v + ":");
+//            System.out.println("Domain:");
+//            for (Integer d : domain) {
+//                System.out.print(" " + d);
+//            }
+//            System.out.println("\n");
+//        }
+//
+//        System.out.println("Constraints:");
+//        for (BinaryConstraint bc : binaryCSP.getConstraints()) {
+//            System.out.println(constraints.get(bc.getFirstVar()).get(bc.getSecondVar()));
+//        }
+    }
 
-        System.out.println("Constraints:");
-        for (BinaryConstraint bc : binaryCSP.getConstraints()) {
-            System.out.println(constraints.get(bc.getFirstVar()).get(bc.getSecondVar()));
-        }
+    static <K,V extends Comparable<? super V>>
+    SortedSet<Map.Entry<Integer, LinkedHashSet<Integer>>> entriesSortedByValues(Map<Integer,LinkedHashSet<Integer>> map) {
+        SortedSet<Map.Entry<Integer, LinkedHashSet<Integer>>> sortedEntries = new TreeSet<Map.Entry<Integer, LinkedHashSet<Integer>>>(
+                new Comparator<Map.Entry<Integer, LinkedHashSet<Integer>>>() {
+                    @Override public int compare(Map.Entry<Integer, LinkedHashSet<Integer>> e1, Map.Entry<Integer, LinkedHashSet<Integer>> e2) {
+                        int res = Integer.compare(e1.getValue().size(), e2.getValue().size());
+                        //Preserves ordering of items with equal values
+                        return res != 0 ? res : 1;
+                    }
+                }
+        );
+        sortedEntries.addAll(map.entrySet());
+        return sortedEntries;
     }
 
     protected BinaryConstraint arc(int futureVar, int var) {
@@ -116,23 +138,23 @@ public abstract class Solver {
         domains.get(var).add(val);
     }
 
-    protected int selectVar(LinkedHashSet<Integer> varList) {
-        if (heuristic == Heuristic.ASCENDING) {
+    protected int selectVar() {
+        //if (heuristic == Heuristic.ASCENDING) {
             return assignments.size();
-        } else {
-            final int UNINITIALISED = -1;
-            int domain = UNINITIALISED;
-
-            //TODO - sort once at the start of the program to avoid repeated linear searches
-            //Gets minimum domain first
-            for (int v : varList) {
-                if (domain == UNINITIALISED || domains.get(v).size() > domains.get(domain).size()) {
-                    domain = v;
-                }
-            }
-
-            return domain;
-        }
+//        } else {
+//            final int UNINITIALISED = -1;
+//            int domain = UNINITIALISED;
+//
+//            //TODO - sort once at the start of the program to avoid repeated linear searches
+//            //Gets minimum domain first
+//            for (int v : varList) {
+//                if (domain == UNINITIALISED || domains.get(v).size() > domains.get(domain).size()) {
+//                    domain = v;
+//                }
+//            }
+//
+//            return domain;
+//        }
     }
 
     protected int selectVal(LinkedHashSet<Integer> domain) {

@@ -24,7 +24,7 @@ public class FCSolver extends Solver {
             printSolution();
             exit(0);
         } else {
-            int var = selectVar(varList);
+            int var = selectVar();
             int val = selectVal(domain(var));
 
             branchFCLeft(varList, var, val);
