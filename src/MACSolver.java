@@ -45,13 +45,13 @@ public class MACSolver extends Solver {
         assign(var, val, pruned);
 
         //If all variables have been assigned
-        if (completeAssignment()) {
+        if (completeAssignment() && !solved) {
             //Print the solution and exit
             printSolution();
-            exit(0);
+            solved = true;
 
         //Re-establish arc consistency after assigning variable a value
-        } else if (AC3(pruned)) {
+        } else if (!solved && AC3(pruned)) {
             //Create subset of varList without var
             LinkedHashSet<Integer> subset = (LinkedHashSet<Integer>) varList.clone();
             subset.remove(var);
@@ -90,6 +90,8 @@ public class MACSolver extends Solver {
     public boolean AC3(Stack<BinaryTuple> pruned) {
         //Queue to store arcs on
         Queue<BinaryConstraint> queue = new LinkedList<>(binaryCSP.getConstraints());
+        //Map used to check if value is in the queue in constant time
+        HashMap<Integer, HashMap<Integer, Integer>> queueLookup = new HashMap<>();
 
         //While there are arcs/constraints left in the queue
         while (!queue.isEmpty()) {
@@ -107,11 +109,21 @@ public class MACSolver extends Solver {
                     for (int xh = 0; xh < binaryCSP.getNoVariables(); xh++) {
                         //Ensures h not equal to j
                         if (xh != xj) {
-                            //TODO - prevent checking repeated values in QUEUE!!!
                             //If an arc(xh, xi) exists
                             if (constraints.containsKey(xh) && constraints.get(xh).containsKey(xi)) {
-                                //Add to queue
-                                ((LinkedList<BinaryConstraint>) queue).push(constraints.get(xh).get(xi));
+                                //If arc(xh, xi) is not already in the queue
+                                if (!(queueLookup.containsKey(xh) && queueLookup.get(xh).containsKey(xi))) {
+                                    //Add to queue
+                                    ((LinkedList<BinaryConstraint>) queue).push(constraints.get(xh).get(xi));
+
+                                    if (!queueLookup.containsKey(xh)) {
+                                        queueLookup.put(xh, new HashMap<>());
+                                    }
+
+                                    //Adds (xh, xi) as keys of queueLookup to provide future constant access
+                                    queueLookup.get(xh).put(xi, 0);
+                                }
+
                             }
                         }
                     }
@@ -125,4 +137,13 @@ public class MACSolver extends Solver {
         //returns true if arcs are made consistent
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer result = new StringBuffer();
+        result.append("MAC");
+        result.append(super.toString());
+        return result.toString();
+    }
+
 }

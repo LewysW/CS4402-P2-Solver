@@ -20,6 +20,9 @@ public abstract class Solver {
     //Heuristic strategy used
     protected Heuristic heuristic;
 
+    //Marks if solution to CSP has been found
+    protected boolean solved = false;
+
     /**
      * Initialises data structures to attempt to improve access time
      * to variables, domains and constraints
@@ -268,7 +271,7 @@ public abstract class Solver {
      */
     public String toString() {
         StringBuffer result = new StringBuffer();
-        result.append("CSP Solution running with the ");
+        result.append(" Solver CSP Solution running with the ");
         result.append(heuristic.name());
         result.append(" variable ordering strategy:\n");
         for (int v = 0; v < binaryCSP.getNoVariables(); v++) {

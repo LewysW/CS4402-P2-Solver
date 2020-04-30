@@ -37,11 +37,11 @@ public class FCSolver extends Solver {
      */
     private void forwardChecking(LinkedHashSet<Integer> varList) {
         //If all variables have been assigned
-        if (completeAssignment()) {
+        if (completeAssignment() && !solved) {
             //Print the solution and exit
             printSolution();
-            exit(0);
-        } else {
+            solved = true;
+        } else if (!solved) {
             //Select variable to assign a value
             int var = selectVar();
             int val = selectVal(domains.get(var));
@@ -133,5 +133,13 @@ public class FCSolver extends Solver {
         //returns true if each arc was revised
         // successfully without a domain being emptied
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer result = new StringBuffer();
+        result.append("FC");
+        result.append(super.toString());
+        return result.toString();
     }
 }

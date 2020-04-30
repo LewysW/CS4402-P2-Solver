@@ -3,18 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="b9111708-b4a2-40c7-bd82-3c68ad9bfd5c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryConstraint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryConstraint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryTuple.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryTuple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSPReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSPReader.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/DomainEmptyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/DomainEmptyException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/FCSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/FCSolver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Heuristic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Heuristic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/MACSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/MACSolver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BinaryConstraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BinaryConstraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DomainEmptyException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DomainEmptyException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Solver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BinaryCSPReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BinaryCSPReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FCSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FCSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MACSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MACSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Solver.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,40 +24,48 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/CS4402_P2_Solver$BinaryCSPReader.ic" NAME="BinaryCSPReader Coverage Results" MODIFIED="1588268939890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-465">
-                    <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
-                    <folding>
-                      <element signature="imports" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Solver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="193" column="58" selection-start-line="193" selection-start-column="58" selection-end-line="193" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="115" column="108" lean-forward="true" selection-start-line="115" selection-start-column="108" selection-end-line="115" selection-end-column="108" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FCSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+            <state relative-caret-position="252">
+              <caret line="37" column="66" lean-forward="true" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#208#209#0" expanded="true" />
                 <element signature="e#251#252#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BinaryCSPReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="19" column="52" lean-forward="true" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -86,13 +92,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/BinaryCSPReader.java" />
-        <option value="$PROJECT_DIR$/src/Solver.java" />
         <option value="$PROJECT_DIR$/src/BinaryConstraint.java" />
         <option value="$PROJECT_DIR$/src/DomainEmptyException.java" />
         <option value="$PROJECT_DIR$/src/Heuristic.java" />
-        <option value="$PROJECT_DIR$/src/MACSolver.java" />
         <option value="$PROJECT_DIR$/src/FCSolver.java" />
+        <option value="$PROJECT_DIR$/src/Solver.java" />
+        <option value="$PROJECT_DIR$/src/MACSolver.java" />
+        <option value="$PROJECT_DIR$/src/BinaryCSPReader.java" />
       </list>
     </option>
   </component>
@@ -134,7 +140,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588283092057" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588286883039" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -174,7 +180,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588254352298</updated>
       <workItem from="1588254358988" duration="11064000" />
-      <workItem from="1588268066552" duration="7794000" />
+      <workItem from="1588268066552" duration="10696000" />
     </task>
     <task id="LOCAL-00001" summary="Ascending is fine in this state, need to fix issue with smallest domain first.">
       <created>1588260807480</created>
@@ -190,17 +196,23 @@
       <option name="project" value="LOCAL" />
       <updated>1588278275109</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Commented FCSolver class">
+      <created>1588283950120</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1588283950120</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18858000" />
+    <option name="totallyTimeSpent" value="21760000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2524013" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2524013" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -209,7 +221,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37554586" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37554586" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3995633" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -238,7 +250,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ascending is fine in this state, need to fix issue with smallest domain first." />
     <MESSAGE value="Commented solver and mac solver, need to check that (xh, xi) is not readded to queue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Commented solver and mac solver, need to check that (xh, xi) is not readded to queue." />
+    <MESSAGE value="Commented FCSolver class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commented FCSolver class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/DomainEmptyException.java">
@@ -252,24 +265,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BinaryConstraint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BinaryCSP.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BinaryCSPReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="25" column="92" selection-start-line="25" selection-start-column="92" selection-end-line="25" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -287,32 +286,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Solver.java">
+    <entry file="file://$PROJECT_DIR$/src/BinaryConstraint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="325" column="51" lean-forward="true" selection-start-line="325" selection-start-column="51" selection-end-line="325" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-465">
-          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="345">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FCSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+        <state relative-caret-position="252">
+          <caret line="37" column="66" lean-forward="true" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#208#209#0" expanded="true" />
             <element signature="e#251#252#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="193" column="58" selection-start-line="193" selection-start-column="58" selection-end-line="193" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="115" column="108" lean-forward="true" selection-start-line="115" selection-start-column="108" selection-end-line="115" selection-end-column="108" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BinaryCSPReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="19" column="52" lean-forward="true" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
         </state>
       </provider>
     </entry>
