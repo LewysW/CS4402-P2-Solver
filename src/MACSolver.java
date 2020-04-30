@@ -3,7 +3,7 @@ import java.util.*;
 import static java.lang.System.exit;
 
 /**
- * MACSolver subclass of Solver to implement maintaining arc consistency
+ * MACSolver subclass of Solver to implement the maintaining arc consistency algorithm
  */
 public class MACSolver extends Solver {
     /**
@@ -26,7 +26,7 @@ public class MACSolver extends Solver {
             varList.add(v);
         }
 
-        //Run MAC3 algorithm on variables
+        //Run FC algorithm on unassigned variables
         MAC3(varList);
     }
 

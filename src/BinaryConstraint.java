@@ -29,6 +29,4 @@ public final class BinaryConstraint {
   public ArrayList<BinaryTuple> getTuples() {
     return tuples;
   }
-
-  // SUGGESTION: You will want to add methods here to reason about the constraint
 }
