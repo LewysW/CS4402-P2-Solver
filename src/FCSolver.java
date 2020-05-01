@@ -40,7 +40,6 @@ public class FCSolver extends Solver {
         if (completeAssignment() && !solved) {
             //Print the solution and exit
             printSolution();
-            solved = true;
         } else if (!solved) {
             //Select variable to assign a value
             int var = selectVar(varList);
