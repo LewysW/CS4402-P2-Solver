@@ -27,6 +27,7 @@ public class MACSolver extends Solver {
         }
 
         //Run FC algorithm on unassigned variables
+        startTime = System.nanoTime();
         MAC3(varList);
         System.out.println(solution);
     }
