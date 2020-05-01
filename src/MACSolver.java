@@ -28,6 +28,7 @@ public class MACSolver extends Solver {
 
         //Run FC algorithm on unassigned variables
         MAC3(varList);
+        System.out.println(solution);
     }
 
     /**
@@ -45,13 +46,12 @@ public class MACSolver extends Solver {
         assign(var, val, pruned);
 
         //If all variables have been assigned
-        if (completeAssignment() && !solved) {
+        if (completeAssignment()) {
             //Print the solution and exit
             printSolution();
-            solved = true;
-
+            exit(0);
         //Re-establish arc consistency after assigning variable a value
-        } else if (!solved && AC3(pruned)) {
+        } else if (AC3(pruned)) {
             //Create subset of varList without var
             LinkedHashSet<Integer> subset = (LinkedHashSet<Integer>) varList.clone();
             subset.remove(var);

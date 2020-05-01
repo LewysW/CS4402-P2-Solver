@@ -37,19 +37,20 @@ public class FCSolver extends Solver {
      */
     private void forwardChecking(LinkedHashSet<Integer> varList) {
         //If all variables have been assigned
-        if (completeAssignment() && !solved) {
-            //Print the solution and exit
+        if (completeAssignment()) {
+            //Set solution
             printSolution();
-        } else if (!solved) {
-            //Select variable to assign a value
-            int var = selectVar(varList);
-            int val = selectVal(domains.get(var));
-
-            //Run left branch
-            branchFCLeft(varList, var, val);
-            //Run right branch
-            branchFCRight(varList, var, val);
+            exit(0);
         }
+
+        //Select variable to assign a value
+        int var = selectVar(varList);
+        int val = selectVal(domains.get(var));
+
+        //Run left branch
+        branchFCLeft(varList, var, val);
+        //Run right branch
+        branchFCRight(varList, var, val);
     }
 
     /**

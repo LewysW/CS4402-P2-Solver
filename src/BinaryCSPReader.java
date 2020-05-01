@@ -24,14 +24,14 @@ public final class BinaryCSPReader {
 //    FCSolver fcSolver = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
 //    fcSolver.solve();
 
-    FCSolver fcSolver = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
-    fcSolver.solve();
+//    FCSolver fcSolver1 = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
+//    fcSolver1.solve();
 
 //    MACSolver macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
 //    macSolver.solve();
-//
-//    macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
-//    macSolver.solve();
+
+    MACSolver macSolver1 = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
+    macSolver1.solve();
   }
 
   /**

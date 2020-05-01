@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b9111708-b4a2-40c7-bd82-3c68ad9bfd5c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/Solver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSPReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/BinaryCSPReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/FCSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS4402-P2-Solver/FCSolver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BinaryCSPReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BinaryCSPReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FCSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FCSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MACSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MACSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Solver.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,25 +23,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Solver.java">
+        <entry file="file://$PROJECT_DIR$/src/FCSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="256" selection-start-line="256" selection-end-line="256" />
-              <folding>
-                <element signature="e#6635#6636#0" expanded="true" />
-                <element signature="e#7619#7620#0" expanded="true" />
-                <element signature="e#7851#7852#0" expanded="true" />
-                <element signature="e#7980#7981#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1620">
-              <caret line="110" selection-start-line="110" selection-end-line="110" />
+            <state relative-caret-position="630">
+              <caret line="44" column="8" lean-forward="true" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,10 +35,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/FCSolver.java">
+        <entry file="file://$PROJECT_DIR$/src/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="127" column="22" selection-start-line="127" selection-start-column="22" selection-end-line="127" selection-end-column="22" />
+            <state relative-caret-position="450">
+              <caret line="197" column="9" selection-start-line="197" selection-start-column="9" selection-end-line="197" selection-end-column="9" />
+              <folding>
+                <element signature="e#6450#6451#0" expanded="true" />
+                <element signature="e#7440#7441#0" expanded="true" />
+                <element signature="e#7672#7673#0" expanded="true" />
+                <element signature="e#7801#7802#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="150" column="5" lean-forward="true" selection-start-line="150" selection-start-column="5" selection-end-line="150" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BinaryCSPReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-600">
-              <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+            <state relative-caret-position="474">
+              <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -80,7 +82,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BinaryConstraint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
+            <state relative-caret-position="536">
               <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
               <folding>
                 <element signature="e#665#666#0" expanded="true" />
@@ -113,10 +115,12 @@
       <find>restore</find>
       <find>satisfies</find>
       <find>reviseFuture</find>
-      <find>revise</find>
       <find>selectVar</find>
       <find>arc</find>
       <find>assign</find>
+      <find>System.out.print</find>
+      <find>revise</find>
+      <find>System.out.println</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,10 +132,10 @@
         <option value="$PROJECT_DIR$/src/DomainEmptyException.java" />
         <option value="$PROJECT_DIR$/src/Heuristic.java" />
         <option value="$PROJECT_DIR$/src/BinaryConstraint.java" />
-        <option value="$PROJECT_DIR$/src/MACSolver.java" />
         <option value="$PROJECT_DIR$/src/BinaryCSPReader.java" />
-        <option value="$PROJECT_DIR$/src/Solver.java" />
+        <option value="$PROJECT_DIR$/src/MACSolver.java" />
         <option value="$PROJECT_DIR$/src/FCSolver.java" />
+        <option value="$PROJECT_DIR$/src/Solver.java" />
       </list>
     </option>
   </component>
@@ -173,7 +177,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588286883039" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588328736566" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -214,7 +218,7 @@
       <updated>1588254352298</updated>
       <workItem from="1588254358988" duration="11064000" />
       <workItem from="1588268066552" duration="10696000" />
-      <workItem from="1588317593685" duration="5629000" />
+      <workItem from="1588317593685" duration="9846000" />
     </task>
     <task id="LOCAL-00001" summary="Ascending is fine in this state, need to fix issue with smallest domain first.">
       <created>1588260807480</created>
@@ -258,11 +262,25 @@
       <option name="project" value="LOCAL" />
       <updated>1588322562308</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Close to a solution!">
+      <created>1588323405256</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1588323405256</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Solved?">
+      <created>1588323578981</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1588323578981</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27389000" />
+    <option name="totallyTimeSpent" value="31606000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
@@ -277,7 +295,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37554586" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.91484714" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3995633" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -310,7 +328,9 @@
     <MESSAGE value="Fixed issue with smallest-domain first variable ordering. The issue had to do with detecting if a constraint was flipped or not." />
     <MESSAGE value="Very close to solution, come back here if code breaks" />
     <MESSAGE value="Removed code which was going to be used for the quicker lookup of domain sizes for smallest-domain first." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed code which was going to be used for the quicker lookup of domain sizes for smallest-domain first." />
+    <MESSAGE value="Close to a solution!" />
+    <MESSAGE value="Solved?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solved?" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/DomainEmptyException.java">
@@ -345,19 +365,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="110" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BinaryConstraint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
+        <state relative-caret-position="536">
           <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
           <folding>
             <element signature="e#665#666#0" expanded="true" />
@@ -368,30 +378,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BinaryCSPReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-600">
-          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+        <state relative-caret-position="474">
+          <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Solver.java">
+    <entry file="file://$PROJECT_DIR$/src/MACSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="256" selection-start-line="256" selection-end-line="256" />
+        <state>
+          <caret line="150" column="5" lean-forward="true" selection-start-line="150" selection-start-column="5" selection-end-line="150" selection-end-column="5" />
           <folding>
-            <element signature="e#6635#6636#0" expanded="true" />
-            <element signature="e#7619#7620#0" expanded="true" />
-            <element signature="e#7851#7852#0" expanded="true" />
-            <element signature="e#7980#7981#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FCSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="127" column="22" selection-start-line="127" selection-start-column="22" selection-end-line="127" selection-end-column="22" />
+        <state relative-caret-position="630">
+          <caret line="44" column="8" lean-forward="true" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="197" column="9" selection-start-line="197" selection-start-column="9" selection-end-line="197" selection-end-column="9" />
+          <folding>
+            <element signature="e#6450#6451#0" expanded="true" />
+            <element signature="e#7440#7441#0" expanded="true" />
+            <element signature="e#7672#7673#0" expanded="true" />
+            <element signature="e#7801#7802#0" expanded="true" />
           </folding>
         </state>
       </provider>

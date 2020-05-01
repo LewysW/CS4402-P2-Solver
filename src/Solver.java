@@ -18,8 +18,7 @@ public abstract class Solver {
     //Heuristic strategy used
     protected Heuristic heuristic;
 
-    //Marks if solution to CSP has been found
-    protected boolean solved = false;
+    protected String solution;
 
     /**
      * Initialises data structures to attempt to improve access time
@@ -155,11 +154,10 @@ public abstract class Solver {
             return assignments.size();
         } else {
             int smallest = -1;
-            System.out.println("Size of varList: " + varList.size());
+
             for (int v : varList) {
                 if (smallest == -1 || smallest > varList.size()) {
                     smallest = v;
-                    System.out.println(domains.get(v).size());
                 }
             };
             return smallest;
@@ -183,14 +181,17 @@ public abstract class Solver {
      */
     protected void assign(int var, int val, Stack<BinaryTuple> pruned) {
         assignments.put(var, val);
-        LinkedHashSet<Integer> domain = (LinkedHashSet<Integer>) domains.get(var).clone();
+        Iterator<Integer> domain = domains.get(var).iterator();
 
         //For each value di in the domain of var
-        for (int di : domain) {
+        while (domain.hasNext()) {
+            Integer di = domain.next();
+
             //If value di is not the selected value val
             if (di != val) {
                 //Prune the value di from the domain
-                domains.get(var).remove(di);
+                domain.remove();
+
                 //Store the value on the stack in case it needs to be restored
                 pruned.push(new BinaryTuple(var, di));
             }
