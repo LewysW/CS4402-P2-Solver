@@ -13,25 +13,27 @@ public final class BinaryCSPReader {
    * Main (for testing)
    */
   public static void main(String[] args) {
-    if (args.length != 1) {
-      System.out.println("Usage: java BinaryCSPReader <file.csp>") ;
+    if (args.length != 3) {
+      System.out.println("Usage: java BinaryCSPReader <file.csp> <algorithm> <heuristic>") ;
       return ;
     }
     BinaryCSPReader reader = new BinaryCSPReader() ;
     System.out.println(reader.readBinaryCSP(args[0])) ;
 
-
-//    FCSolver fcSolver = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
-//    fcSolver.solve();
-
-//    FCSolver fcSolver1 = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
-//    fcSolver1.solve();
-
-//    MACSolver macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
-//    macSolver.solve();
-
-    MACSolver macSolver1 = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
-    macSolver1.solve();
+    //Uses args to select algorithm and heuristic to use
+    if (args[1].equals("fc")) {
+        if (args[2].equals("a")) {
+            new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING).solve();
+        } else if (args[2].equals("s")) {
+            new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST).solve();
+        }
+    } else if (args[1].equals("mac")) {
+        if (args[2].equals("a")) {
+            new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING).solve();
+        } else if (args[2].equals("s")) {
+            new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST).solve();
+        }
+    }
   }
 
   /**
