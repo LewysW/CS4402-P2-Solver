@@ -117,7 +117,7 @@ public class FCSolver extends Solver {
     private boolean reviseFutureArcs(LinkedHashSet<Integer> varList, int var, Stack<BinaryTuple> pruned) {
         //For each future variable which is not var
         for (int futureVar : varList) {
-            if (!(futureVar == var)) {
+            if (futureVar != var) {
                 try {
                     //If an arc exists between the two variables
                     if (arc(var, futureVar) != null) {

@@ -27,11 +27,11 @@ public final class BinaryCSPReader {
     fcSolver = new FCSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
     fcSolver.solve();
 
-    MACSolver macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
-    macSolver.solve();
-
-    macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
-    macSolver.solve();
+//    MACSolver macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.ASCENDING);
+//    macSolver.solve();
+//
+//    macSolver = new MACSolver(reader.readBinaryCSP(args[0]), Heuristic.SMALLEST_DOMAIN_FIRST);
+//    macSolver.solve();
   }
 
   /**

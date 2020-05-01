@@ -154,10 +154,6 @@ public abstract class Solver {
             //Get value of next variable which has not be assigned a value
             return assignments.size();
         } else {
-            if (assignments.size() == 5) {
-                System.out.println("Size 5!\n");
-            }
-
             int smallest = -1;
             System.out.println("Size of varList: " + varList.size());
             for (int v : varList) {
