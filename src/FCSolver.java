@@ -27,6 +27,7 @@ public class FCSolver extends Solver {
             varList.add(v);
         }
 
+        startTime = System.nanoTime();
         //Run FC algorithm on unassigned variables
         forwardChecking(varList);
     }
@@ -36,10 +37,13 @@ public class FCSolver extends Solver {
      * @param varList - list of unassigned variables
      */
     private void forwardChecking(LinkedHashSet<Integer> varList) {
+        numNodes++;
+
         //If all variables have been assigned
-        if (completeAssignment()) {
+        if (completeAssignment() ) {
             //Set solution
             printSolution();
+            printResults();
             exit(0);
         }
 

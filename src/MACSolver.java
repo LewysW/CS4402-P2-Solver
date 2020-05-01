@@ -36,6 +36,8 @@ public class MACSolver extends Solver {
      * @param varList - list of unassigned variables
      */
     public void MAC3(LinkedHashSet<Integer> varList) {
+        numNodes++;
+
         //Select variable to assign value
         int var = selectVar(varList);
         int val = selectVal(domains.get(var));
@@ -49,8 +51,9 @@ public class MACSolver extends Solver {
         if (completeAssignment()) {
             //Print the solution and exit
             printSolution();
+            printResults();
             exit(0);
-        //Re-establish arc consistency after assigning variable a value
+            //Re-establish arc consistency after assigning variable a value
         } else if (AC3(pruned)) {
             //Create subset of varList without var
             LinkedHashSet<Integer> subset = (LinkedHashSet<Integer>) varList.clone();
@@ -102,7 +105,7 @@ public class MACSolver extends Solver {
                 int var1 = topConstraint.getFirstVar();
                 int var2 = topConstraint.getSecondVar();
 
-
+                //Remove constraint from hash map
                 if (queueLookup.containsKey(var1)) {
                     //If hashmap to lookup queue values contains the queue just popped
                     if (queueLookup.get(var1).containsKey(var2)) {

@@ -20,6 +20,11 @@ public abstract class Solver {
 
     protected String solution;
 
+    protected long numNodes = 0;
+    protected long numArcRevisions = 0;
+    protected long startTime = 0;
+    protected long endTime = 0;
+
     /**
      * Initialises data structures to attempt to improve access time
      * to variables, domains and constraints
@@ -53,6 +58,16 @@ public abstract class Solver {
         }
     }
 
+    protected void printResults() {
+        long endTime = System.nanoTime();
+
+        long durationMS = (endTime - startTime) / 1000000;
+
+        System.out.println("Time Taken: " + durationMS + "ms");
+        System.out.println("Nodes in search tree: " + numNodes);
+        System.out.println("Arc revisions: " + numArcRevisions);
+    }
+
     /**
      * Gets arc between two variables
      * @param futureVar - future variable xi
@@ -82,6 +97,8 @@ public abstract class Solver {
      * @throws DomainEmptyException - throws exception is domain of xi is empty to exit early
      */
     protected boolean revise(BinaryConstraint constraint, Stack<BinaryTuple> pruned) throws DomainEmptyException {
+        numArcRevisions++;
+
         boolean changed = false;
         int Di_index = constraint.getSecondVar();
 
