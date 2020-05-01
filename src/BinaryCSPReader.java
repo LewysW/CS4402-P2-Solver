@@ -14,7 +14,7 @@ public final class BinaryCSPReader {
    */
   public static void main(String[] args) {
     if (args.length != 3) {
-      System.out.println("Usage: java BinaryCSPReader <file.csp> <algorithm> <heuristic>") ;
+      System.out.println("Usage: ./run.sh BinaryCSPReader <file.csp> <algorithm> <heuristic>") ;
       return ;
     }
     BinaryCSPReader reader = new BinaryCSPReader() ;
