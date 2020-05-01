@@ -89,6 +89,7 @@ public class MACSolver extends Solver {
      */
     public boolean AC3(Stack<BinaryTuple> pruned) {
         //Queue to store arcs on
+
         Queue<BinaryConstraint> queue = new LinkedList<>(binaryCSP.getConstraints());
         //Map used to check if value is in the queue in constant time
         HashMap<Integer, HashMap<Integer, Integer>> queueLookup = new HashMap<>();
@@ -98,6 +99,21 @@ public class MACSolver extends Solver {
             try {
                 //Remove arc(xi, xj) in queue
                 BinaryConstraint topConstraint = ((LinkedList<BinaryConstraint>) queue).pop();
+                int var1 = topConstraint.getFirstVar();
+                int var2 = topConstraint.getSecondVar();
+
+
+                if (queueLookup.containsKey(var1)) {
+                    //If hashmap to lookup queue values contains the queue just popped
+                    if (queueLookup.get(var1).containsKey(var2)) {
+                        //Remove it from lookup map
+                        queueLookup.get(var1).remove(var2);
+
+                        if (queueLookup.get(var1).isEmpty()) {
+                            queueLookup.remove(var1);
+                        }
+                    }
+                }
 
                 //If arcs have been revised
                 if (revise(topConstraint, pruned)) {
@@ -108,22 +124,18 @@ public class MACSolver extends Solver {
                     //Add to queue all arcs(xh, xi) where (h != j)
                     for (int xh = 0; xh < binaryCSP.getNoVariables(); xh++) {
                         //Ensures h not equal to j
-                        if (xh != xj) {
-                            //If an arc(xh, xi) exists
-                            if (constraints.containsKey(xh) && constraints.get(xh).containsKey(xi)) {
-                                //If arc(xh, xi) is not already in the queue
-                                if (!(queueLookup.containsKey(xh) && queueLookup.get(xh).containsKey(xi))) {
-                                    //Add to queue
-                                    ((LinkedList<BinaryConstraint>) queue).push(constraints.get(xh).get(xi));
+                        if (xh != xj && !(queueLookup.containsKey(xh) && queueLookup.get(xh).containsKey(xi))) {
+                            //If arc(xh, xi) is not already in the queue
+                            if (!(arc(xh, xi) == null)) {
+                                //Add to queue
+                                ((LinkedList<BinaryConstraint>) queue).push(arc(xh, xi));
 
-                                    if (!queueLookup.containsKey(xh)) {
-                                        queueLookup.put(xh, new HashMap<>());
-                                    }
-
-                                    //Adds (xh, xi) as keys of queueLookup to provide future constant access
-                                    queueLookup.get(xh).put(xi, 0);
+                                if (!queueLookup.containsKey(xh)) {
+                                    queueLookup.put(xh, new HashMap<>());
                                 }
 
+                                //Adds (xh, xi) as keys of queueLookup to provide future constant access
+                                queueLookup.get(xh).put(xi, 0);
                             }
                         }
                     }

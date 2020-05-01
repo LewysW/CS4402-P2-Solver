@@ -119,9 +119,11 @@ public class FCSolver extends Solver {
         for (int futureVar : varList) {
             if (!(futureVar == var)) {
                 try {
-                    System.out.println("(var, futureVar) : " + "(" + var + "," + futureVar + ")");
                     //If an arc exists between the two variables
-                    revise(arc(futureVar, var), pruned);
+                    if (arc(var, futureVar) != null) {
+                        //Revise the domain of the future variable
+                        revise(arc(var, futureVar), pruned);
+                    }
                  //Returns false iff a domain is emptied by a revision
                 } catch (DomainEmptyException e) {
                     return false;

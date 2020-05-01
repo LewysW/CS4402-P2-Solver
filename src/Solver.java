@@ -73,7 +73,7 @@ public abstract class Solver {
      * @param var - current variable xj
      * @return arc(xi, xj)
      */
-    protected BinaryConstraint arc(int futureVar, int var) {
+    protected BinaryConstraint arc(int var, int futureVar) {
         //If constraint exists for (xi, xj), return it
         if (constraints.containsKey(var) && constraints.get(var).containsKey(futureVar)) {
             return constraints.get(var).get(futureVar);
@@ -82,9 +82,10 @@ public abstract class Solver {
             BinaryConstraint constraint = constraints.get(futureVar).get(var);
             constraint.reverse();
             return constraint;
+        } else {
+            //No constraint between xi and xj
+            return null;
         }
-        //No constraint between xi and xj
-        return null;
     }
 
     /**
