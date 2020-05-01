@@ -12,8 +12,6 @@ public abstract class Solver {
     protected ArrayList<LinkedHashSet<Integer>> domains = new ArrayList<>();
     //Constraints which represent arcs in the problem
     protected LinkedHashMap<Integer, LinkedHashMap<Integer, BinaryConstraint>> constraints = new LinkedHashMap<>();
-    //Stores map of domain sizes to variables for smallest-domain first ordering
-    protected TreeMap<Integer, LinkedHashSet<Integer>> domainSizes = new TreeMap<>();
 
     //Problem to solve
     protected BinaryCSP binaryCSP;
@@ -41,17 +39,6 @@ public abstract class Solver {
             //Add value d in domain for variable v
             for (int d = binaryCSP.getLB(v); d <= binaryCSP.getUB(v); d++) {
                 this.domains.get(v).add(d);
-            }
-
-            //If using smallest-domain first ordering
-            if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-                //Initialise map if no other variable has previously had this domain
-                if (!domainSizes.containsKey(domains.get(v).size())) {
-                    domainSizes.put(domains.get(v).size(), new LinkedHashSet<>());
-                }
-
-                //Store key and value representing size of domain and variable with that domain size
-                domainSizes.get(domains.get(v).size()).add(v);
             }
 
             //For each constraint
@@ -143,12 +130,6 @@ public abstract class Solver {
      * @param var - variable to reduce the domain of
      */
     protected void remove(int val, int var) {
-        //If smallest-domain first is being used
-        if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-            //Change which domain size this variable is associated with
-            updateDomainSizeMapping(domains.get(var).size(), domains.get(var).size() - 1, var);
-        }
-
         //Remove value from domain of variable
         domains.get(var).remove(val);
     }
@@ -159,12 +140,6 @@ public abstract class Solver {
      * @param var - variable to have value added to its domain
      */
     protected void restore(int val, int var) {
-        //If smallest-domain first is being used
-        if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-            //Change which domain size this variable is associated with
-            updateDomainSizeMapping(domains.get(var).size(), domains.get(var).size() + 1, var);
-        }
-
         //Add value to domain of variable
         domains.get(var).add(val);
     }
@@ -179,13 +154,18 @@ public abstract class Solver {
             //Get value of next variable which has not be assigned a value
             return assignments.size();
         } else {
-            int smallest = -1;
+            if (assignments.size() == 5) {
+                System.out.println("Size 5!\n");
+            }
 
+            int smallest = -1;
+            System.out.println("Size of varList: " + varList.size());
             for (int v : varList) {
                 if (smallest == -1 || smallest > varList.size()) {
                     smallest = v;
+                    System.out.println(domains.get(v).size());
                 }
-            }
+            };
             return smallest;
         }
     }
@@ -209,9 +189,6 @@ public abstract class Solver {
         assignments.put(var, val);
         LinkedHashSet<Integer> domain = (LinkedHashSet<Integer>) domains.get(var).clone();
 
-        //Get size of domain of var
-        int inititalSize = domain.size();
-
         //For each value di in the domain of var
         for (int di : domain) {
             //If value di is not the selected value val
@@ -220,18 +197,6 @@ public abstract class Solver {
                 domains.get(var).remove(di);
                 //Store the value on the stack in case it needs to be restored
                 pruned.push(new BinaryTuple(var, di));
-            }
-        }
-
-        //If using smallest domain first heuristic
-        if (heuristic == Heuristic.SMALLEST_DOMAIN_FIRST) {
-            //Remove variable from associated domain size
-            domainSizes.get(inititalSize).remove(var);
-
-            //If no other variables associated with domain size
-            if (domainSizes.get(inititalSize).isEmpty()) {
-                //Remove size from domain sizes
-                domainSizes.remove(inititalSize);
             }
         }
     }
@@ -293,34 +258,5 @@ public abstract class Solver {
             //Restore value to domain of variable
             restore(val, var);
         }
-    }
-
-    /**
-     * Updates mapping from size of domain to
-     * variables with that domain size
-     * @param currentSize - current size of domain of variable
-     * @param newSize - new size of domain of variable
-     * @param var - variable to update domain size of
-     */
-    protected void updateDomainSizeMapping(int currentSize, int newSize, int var) {
-        //If there exists a set of variables with that domain size, and var is one of them
-        if (domainSizes.containsKey(currentSize) && domainSizes.get(currentSize).contains(var)) {
-            //Remove var from set with that domain size
-            domainSizes.get(currentSize).remove(var);
-
-            //If there are no longer any variables with that size domain,
-            if (domainSizes.get(currentSize).isEmpty()) {
-                //then the delete the set with that domain size
-                domainSizes.remove(currentSize);
-            }
-        }
-
-        //If previous variables with that domain size, add domain size
-        if (!domainSizes.containsKey(newSize)) {
-            domainSizes.put(newSize, new LinkedHashSet<>());
-        }
-
-        //Associate var with domain of size newSize
-        domainSizes.get(newSize).add(var);
     }
 }
