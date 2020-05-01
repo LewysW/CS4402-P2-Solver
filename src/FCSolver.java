@@ -43,7 +43,7 @@ public class FCSolver extends Solver {
             solved = true;
         } else if (!solved) {
             //Select variable to assign a value
-            int var = selectVar();
+            int var = selectVar(varList);
             int val = selectVal(domains.get(var));
 
             //Run left branch
@@ -119,10 +119,9 @@ public class FCSolver extends Solver {
         for (int futureVar : varList) {
             if (!(futureVar == var)) {
                 try {
+                    System.out.println("(var, futureVar) : " + "(" + var + "," + futureVar + ")");
                     //If an arc exists between the two variables
-                    if (constraints.containsKey(var) && constraints.get(var).containsKey(futureVar)) {
-                        revise(arc(futureVar, var), pruned);
-                    }
+                    revise(arc(futureVar, var), pruned);
                  //Returns false iff a domain is emptied by a revision
                 } catch (DomainEmptyException e) {
                     return false;

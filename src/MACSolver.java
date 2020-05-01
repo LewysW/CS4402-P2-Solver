@@ -36,7 +36,7 @@ public class MACSolver extends Solver {
      */
     public void MAC3(LinkedHashSet<Integer> varList) {
         //Select variable to assign value
-        int var = selectVar();
+        int var = selectVar(varList);
         int val = selectVal(domains.get(var));
 
         Stack<BinaryTuple> pruned = new Stack<>();

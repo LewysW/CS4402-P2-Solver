@@ -74,7 +74,17 @@ public abstract class Solver {
      * @return arc(xi, xj)
      */
     protected BinaryConstraint arc(int futureVar, int var) {
-        return constraints.get(var).get(futureVar);
+        //If constraint exists for (xi, xj), return it
+        if (constraints.containsKey(var) && constraints.get(var).containsKey(futureVar)) {
+            return constraints.get(var).get(futureVar);
+        } else if (constraints.containsKey(futureVar) && constraints.get(futureVar).containsKey(var)) {
+            //Otherwise find equivalent constraint, modify it accordingly and return it
+            BinaryConstraint constraint = constraints.get(futureVar).get(var);
+            constraint.reverse();
+            return constraint;
+        }
+        //No constraint between xi and xj
+        return null;
     }
 
     /**
@@ -100,7 +110,7 @@ public abstract class Solver {
             //For each value in the domain Dj of xj
             for (Integer dj : Dj) {
                 //if xi = di and xj = dj satisfies the constraint
-                if (satisfies(di, dj, constraint)) {
+                if (constraint.satisfies(di, dj)) {
                     //Supported is set to true
                     supported = true;
                 }
@@ -124,29 +134,6 @@ public abstract class Solver {
 
         //Return whether change to domain Di was made
         return changed;
-    }
-
-
-    /**
-     * Returns whether assignments to variables xi and xj satisfy constraint c
-     * @param xi - first variable in arc
-     * @param xj - second variable in arc
-     * @param c - constraint
-     * @return whether (xi, xj) satisfies c
-     */
-    protected boolean satisfies(int xi, int xj, BinaryConstraint c) {
-        //For each pair of valid values in the constraint
-        for (BinaryTuple tuple : c.getTuples()) {
-            //If one of them matches the values of the variables
-            if (tuple.matches(xi, xj)) {
-                //Then the constraint is satisfied
-                return true;
-            }
-        }
-
-        //If none of the tuples match the variable
-        // values then the constraint is not satisfied
-        return false;
     }
 
     /**
@@ -185,14 +172,20 @@ public abstract class Solver {
      * Selects a variable depending on the variable ordering heuristic in use
      * @return next variable to assign
      */
-    protected int selectVar() {
+    protected int selectVar(LinkedHashSet<Integer> varList) {
         //If heuristic is ascending
         if (heuristic == Heuristic.ASCENDING) {
             //Get value of next variable which has not be assigned a value
             return assignments.size();
         } else {
-            //Otherwise get first entry in smallest domain
-            return domainSizes.firstEntry().getValue().iterator().next();
+            int smallest = -1;
+
+            for (int v : varList) {
+                if (smallest == -1 || smallest > varList.size()) {
+                    smallest = v;
+                }
+            }
+            return smallest;
         }
     }
 
